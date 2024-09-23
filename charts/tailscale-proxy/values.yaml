@@ -20,6 +20,7 @@ dns:
 image:
   name: ghcr.io/tailscale/tailscale
   pullPolicy: IfNotPresent
+  tag: ''
 
 tags: []
 

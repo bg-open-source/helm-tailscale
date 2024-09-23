@@ -22,7 +22,7 @@ spec:
       {{- end }}
       containers:
       - name: "{{ .Release.Name }}-{{ .Chart.Name }}"
-        image: "{{ .Values.image.name }}:v{{ .Chart.AppVersion }}"
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag | default (printf "v%s" .Chart.AppVersion) }}"
         ports:
         - containerPort: 80
         - containerPort: 443
