@@ -34,7 +34,7 @@ spec:
       containers:
       - name: tailscale-proxy
         imagePullPolicy: "{{ .Values.image.pullPolicy }}"
-        image: "{{ .Values.image.name }}:v{{ .Chart.AppVersion }}"
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag | default (printf "v%s" .Chart.AppVersion) }}"
         env:
         - name: TS_EXTRA_ARGS
           value: "--hostname={{ .Values.hostname }}{{ if not (empty .Values.tags) }} --advertise-tags={{ join "," .Values.tags }}{{ end }}{{ if not (empty .Values.up.extra_args) }} {{ .Values.up.extra_args }}{{ end }}"

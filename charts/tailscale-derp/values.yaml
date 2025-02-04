@@ -1,6 +1,7 @@
 image:
   name: docker.io/sspreitzer/tailscale-derp
   pullPolicy: IfNotPresent
+  tag: ''
 
 service:
   type: LoadBalancer
