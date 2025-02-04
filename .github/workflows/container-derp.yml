@@ -13,7 +13,7 @@ on:
 jobs:
 
   Tailscale_Derp:
-    uses: sspreitzer/helm-tailscale/.github/workflows/container.yml@main
+    uses: ./.github/workflows/container.yml
     with:
       container: tailscale-derp
     secrets: inherit
