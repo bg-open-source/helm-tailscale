@@ -19,6 +19,8 @@ jobs:
   Helm:
     runs-on: ubuntu-latest
     concurrency: Helm
+    environment:
+      name: helm-charts
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v3
@@ -32,9 +34,9 @@ jobs:
       - name: Create Cache Directory
         run: mkdir -p cache
       - name: Add Tailscale Helm Repository
-        run: helm repo add tailscale https://spreitzer.ch/helm-tailscale
+        run: helm repo add tailscale https://bg-open-source.github.io/helm-tailscale || echo "No repo - first run?"
       - name: Load Tailscale Repository Index
-        run: helm repo update tailscale
+        run: helm repo update tailscale || echo "No repo - first run?"
       - name: Pull All Helm Charts
         run: helm search repo tailscale -o json | jq '.[] | .name + " " + .version' -r | awk '{ print "helm pull --destination cache/", $1, "--version", $2; }' | xargs -I {} bash -c "{}"
       - name: Update Helm Chart dependencies
@@ -42,10 +44,10 @@ jobs:
       - name: Build Helm Chart
         run: helm package charts/${{ inputs.chart }} --destination cache --app-version ${{ steps.getversion.outputs.version }}
       - name: Create Helm Repository
-        run: helm repo index cache --url https://spreitzer.ch/helm-tailscale
+        run: helm repo index cache --url https://bg-open-source.github.io/helm-tailscale
       - name: Create GitHub Pages Artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: cache
       - name: Deploy Helm Repository on GitHub Pages
-        uses: actions/deploy-pages@v1      
+        uses: actions/deploy-pages@v4

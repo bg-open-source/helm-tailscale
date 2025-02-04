@@ -15,6 +15,6 @@ jobs:
     permissions:
       pages: write
       id-token: write
-    uses: sspreitzer/helm-tailscale/.github/workflows/helm.yml@main
+    uses: ./.github/workflows/helm.yml
     with:
       chart: tailscale-proxy
