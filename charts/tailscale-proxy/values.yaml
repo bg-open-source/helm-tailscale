@@ -29,3 +29,5 @@ up:
 
 daemon:
   extra_args: ''
+
+extraEnvVars: {}

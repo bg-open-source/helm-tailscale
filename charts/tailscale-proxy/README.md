@@ -40,6 +40,13 @@ sysctl:
   net.ipv6.conf.all.forwarding: 0
 ```
 
+Disable direct connections (if you want make sure your clients real IPs never seen):
+
+```yaml
+extraEnvVars:
+  TS_DEBUG_ALWAYS_USE_DERP: true
+```
+
 ## Helm Chart Values
 
 | Key | Description | Default |
@@ -51,6 +58,7 @@ sysctl:
 | `hostname` | The name of the tailnet node. | `kubernetes-tailnet-proxy` |
 | `dns.nameservers` | An array/list of additional DNS nameservers for the proxy container. | `['100.100.100.100']` |
 | `dns.searches` | An array/list of additional DNS search domain suffixes for the proxy container. | `['tailxxxxx.ts.net']` |
+| `extraEnvVars` | Additinal environment variables for proxy | `{}` |
 | `image.name` | Name of the container image to use. | `ghcr.io/tailscale/tailscale` |
 | `image.pullPolicy` | Kubernetes pullPolicy to use for starting the container image. | `IfNotPresent` |
 | `tags` | An array/list of tailnet tags to use for this node. | `[]` |

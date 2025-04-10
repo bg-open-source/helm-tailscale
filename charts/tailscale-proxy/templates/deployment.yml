@@ -56,6 +56,10 @@ spec:
           value: "{{ .Values.destination.ip }}"
         - name: TS_AUTH_ONCE
           value: "true"
+        {{- range $key, $value := .Values.extraEnvVars }}
+        - name: {{ $key }}
+          value: {{ default "" $value | quote }}
+        {{- end }}
         securityContext:
           capabilities:
             add:
